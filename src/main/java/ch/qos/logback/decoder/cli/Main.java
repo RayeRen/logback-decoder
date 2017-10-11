@@ -16,12 +16,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 
+import ch.qos.logback.decoder.LogbackDecoder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.Level;
-import ch.qos.logback.decoder.BufferDecoder;
 
 /**
  * Provides application entry point
@@ -55,7 +55,7 @@ public final class Main {
           enableVerboseLogging();
         }
 
-        BufferDecoder decoder = new BufferDecoder();
+        LogbackDecoder decoder = new LogbackDecoder();
         decoder.setLayoutPattern(mainArgs.getLayoutPattern());
 
         BufferedReader reader = null;

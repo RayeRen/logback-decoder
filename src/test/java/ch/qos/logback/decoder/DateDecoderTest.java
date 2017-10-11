@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import org.junit.Test;
@@ -30,7 +31,9 @@ import ch.qos.logback.core.CoreConstants;
  * @author Anthony Trinh
  */
 public class DateDecoderTest extends DecoderTest {
-
+  static{
+    Locale.setDefault(Locale.UK);
+  }
   @Test
   public void decodesDateISO8601Pattern() throws ParseException {
     // ISO8601 has comma for decimal point so we need to quote it for
@@ -102,7 +105,7 @@ public class DateDecoderTest extends DecoderTest {
 
     SimpleDateFormat sdf = formatClean.isEmpty()
                            ? new SimpleDateFormat()
-                           : new SimpleDateFormat(formatClean);
+                           : new SimpleDateFormat(formatClean, Locale.US);
 
     if (!format.isEmpty() && !timeZoneName.isEmpty()) {
       sdf.setTimeZone(TimeZone.getTimeZone(timeZoneName));
@@ -113,7 +116,7 @@ public class DateDecoderTest extends DecoderTest {
       decoder.setLayoutPattern("%d %msg%n");
     }
 
-    ILoggingEvent event = decoder.decode(input + " Hello world!\n");
+    ILoggingEvent event = decoder.decode(input + " Hello world!\r\n");
     assertNotNull(event);
     assertEquals(sdf.parse(input).getTime(), event.getTimeStamp());
   }

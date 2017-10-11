@@ -24,21 +24,26 @@ import ch.qos.logback.classic.PatternLayout;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 
 /**
- * A BufferDecoder parses all log events from a stream
+ * A LogbackDecoder parses all log events from a stream
  *
  * @author Anthony Trinh
  */
-public class BufferDecoder extends Decoder {
+public class LogbackDecoder extends Decoder {
   private final Logger logger;
 
   /**
-   * Constructs a BufferDecoder
+   * Constructs a LogbackDecoder
    *
    * @param path path to log file
    */
-  public BufferDecoder() {
+  public LogbackDecoder() {
     super();
-    logger = LoggerFactory.getLogger(BufferDecoder.class);
+    logger = LoggerFactory.getLogger(LogbackDecoder.class);
+  }
+
+  public LogbackDecoder(String pattern){
+    this();
+    setLayoutPattern(pattern);
   }
 
   /**
